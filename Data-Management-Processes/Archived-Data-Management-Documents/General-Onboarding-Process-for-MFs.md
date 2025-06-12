@@ -1,0 +1,23 @@
+- MF requests data onboarding via SNOW. A Splunk Data Onboarding Request will be opened for each data source to be ingested. If a particular MF project requires onboarding multiple data sources, a request form will be opened for each data source type and will be tracked by MF in their DevOps ticket https://deloitteglobal.service-now.com/sp?id=sc_cat_item&sys_id=97e4655fdbdff30ccb86d18c689619d9
+  - Request workflow details is  https://dev.azure.com/GlobalSOC/Splunk/_wiki/wikis/Splunk.wiki/654/Global-Fusion-Center-Splunk-Data-Source-Onboarding-Request
+  - The data onboarding begin date is intended for stakeholders who are requesting GEMS to onboard their data into Splunk. For the purposes of US SOC Engineering, this date is not applicable as that team is responsible for developing the configurations/content required to onboard logs into Splunk. This date should not be used as a reason for delaying ingestion or not approving DevOps PRs.
+  - The Volume section of the ticket must be completed for approval.
+  - The Content/Alerting section of the ticket must be completed for approval. The section does not need to contain the actual content that exists or will be developed. However, the section must include enough information to allow approver to make an informed decision on approval.
+    - For example, IIS logs contain authentication events which will be mapped to the Authentication Data Model and feed existing FC-023 content.
+    - For example, a specific alert will be developed for authentication by ABC users.
+  - Both of these fields will be completed by onboarding the requested logs into Development before seeking approval for ingestion into Production. This is only relevant to the US Engineering team. 
+  - The request will be approved/denied/returned for revisions by Rob Sukhwani within 3 days of submission.
+- Member of the FC engineering team is assigned to the SNOW request
+- Once request is approved in SNOW, requesting MF will create a work item in DevOps under the "Data Onboarding" work item type and assign to the respective FC engineering team member
+- The MF contact and FC engineer will work together to onboard requested data source
+  - New or existing data onboard request process must be followed. If MF has their own dev environment, then dev environment specific steps must be followed in prod where applicable. 
+    - New data source: https://dev.azure.com/GlobalSOC/Splunk/_wiki/wikis/Splunk.wiki/171/New-Data-Source-On-boarding
+    - Existing data source: https://dev.azure.com/GlobalSOC/Splunk/_wiki/wikis/Splunk.wiki/172/Existing-Data-Source-On-boarding
+  - Requesting MF will submit relevant PR's to bring data source on to the environment
+  - Stage PR's is submitted my member firm. 
+  - Prod PR to be submitted my member firm. Prod PR to be submitted only once stage PR's have been reviewed.
+  - Include SNOW ticket number and work item number in pull request submitted to allow for quicker review
+- DevOps work item will be closed by the Splunk Engineering team. Data onboarding has several requirements that have to be met to determine a data onboarding work item is fully complete, those can be found as a checklist in the work item itself. Engineering team will confirm all requirements have been fully met and then close it when appropriate. 
+
+- Refer to PR requirement wiki for submitting PR's in stage and prod
+https://dev.azure.com/GlobalSOC/Splunk/_wiki/wikis/Splunk.wiki/54/Pull-Request-Requirements-Standards
