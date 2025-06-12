@@ -1,0 +1,31 @@
+- An alert from the Distributed Monitoring Console (DMC) is triggered due a host that is expected to report into the License Master but has not in the last 5 minutes
+- Health Monitoring Alert Work Item (HMAWI) is automatically created by Azure Logic and added to Health Monitoring boards on the &quot;New&quot; column
+ - HMAWI is automatically populated with alert name, issue, playbook steps and/or link to playbook, date created, and associated SLA time for resolution
+- HM team assign HMAWI work item to available member.
+- HM lead is responsible for managing HM team member workload to make sure resolution can be met within SLA.
+- HM team member starts resolution process by following alert-specific playbook
+
+#Playbook: DMC – Host Failed to Connect to License Master 
+
+- Host Failed to Connect to License Master Playbook
+  - HM team member moves HMAWI to &quot;verification of alert&quot; column on run HM boards
+  - HM team member accesses Splunk GUI and verifies the accuracy of the alert
+   - If HMAWI is verified to be false positive, HM team member moves HMAWI to false positive column &amp; state
+  - Verify host is online by SSH&#39;ing to the backend of the host in question, if Splunk GUI is online also attempt to access GUI to verify host is alive. HM team member moves HMAWI to &quot;Active&quot; column
+   - If host is alive, verify license settings:
+      - (If Splunk GUI exists) Navigate to Settings \&gt; Licensing and verify that host has reported into the License Master within the last minute  - if it has, move HMAWI to column &quot;False Positive&quot;
+      - (If Splunk GUI does not exist) Navigate to Production Search Head in the applicable region and go to Search &amp; Reporting app, search for <pre><code>index=_internal log_level=ERROR host=<host in question> component="LMTracker"</code></pre> and verify that the host has not reported in to License Master in the last minute. If it has, move HMAWI to False Positive column
+    - After performing the above steps and host is found not to be alive or not reporting to the License Master:
+      - If host is not alive (e.g. host unreachable), contact Data Center Team (GNOC) .HM team member moves HMAWI to &quot;Pending Stakeholder / On Hold&quot; column
+      - If host is alive but not reporting into the License Master:
+      - Verify network connectivity between host that is down by using the command <pre><code>telnet <hostname / IP> 8089 </code></pre>
+     - If network connectivity exists, check for similar work items that indicate the License Master is the core problem
+     - If License Master is the core problem, troubleshoot with deployment team
+     - If host under question is NOT a production server and License Master is not the core problem, check the license configuration on the host in question and correct any misconfiguration, then restart the Splunk service. If host is a production server, open ERFC to restart Splunk service at earliest availability.
+  - HM team member moves HMAWI to Issue Identified
+- Additional Troubleshooting
+  - After performing the above troubleshooting steps and the host in question is still unable to connect to the License Master, reach out to the Architecture team for additional troubleshooting support
+   - If Architecture teams is unable to find root cause then open Splunk Support case for further troubleshooting.
+    - HM team member updates root cause identified, solution identified, solution implemented fields on HMAWIs
+     - HM team member moves HMAWI to closed column &amp; state
+     - HM team member notifies Architecture team and HM team that issue has been resolved.

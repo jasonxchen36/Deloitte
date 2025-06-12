@@ -1,0 +1,114 @@
+   - P1 - High Severity - SLA 4 Hour Response
+   - High Severity (1st Offense)
+
+     - Lead informs Offender&#39;s Manager and/or Lead that a high offense has been reached and the Offender&#39;s access to abused resource will be revoked
+     - Lead immediately removes Offender&#39;s access to abused resource (e.g., removing SSH access)
+     - Offender is added to the Offender list (Done automatically by Splunk)
+       - Include information on list such as Offender name, Offense type, Manager and/or Lead, Enforcement action taken, number of Offenses, etc.
+     - \*Number of Offenses on the Offender list for a High Severity alert is automatically set to 3 (Done automatically by Splunk)
+     - Lead works with Engineering leadership, GEMS leadership (if applicable), and Offender&#39;s Manager and/or Lead to determine a path forward
+     - Once a path forward is agreed upon, SMAWI is updated and state changed to Monitoring Extreme Offender (assuming that Offender&#39;s access is reinstated)
+       - If Offender&#39;s access is not reinstated, change SMAWI state to Pending Leadership and wait for further direction
+     - Offender is added to Extreme Offender list which will generate audit reports to Engineering leadership
+     - Once Engineering leadership is satisfied with security posture of Offender, SMAWI state is moved to Resolved and Offender is removed from Extreme Offender list
+       - \*Offender should stay on Offender list
+
+  - P2 - Medium Severity - SLA 8 Hour Response
+   - Medium Severity (1st Offense)
+      - An email notification to the Offender and Offender&#39;s Manager and/or Lead with the original alert forwarded or attached
+      - Lead may hand any explanations or retraining requested by Offender&#39;s Manager and/or Lead to Run Engineer
+      - Offender is added to the Offender list
+        - Include information on list such as Offender name, Offense type, Manager and/or Lead, Enforcement action taken, number of Offenses, etc.
+        - \*Number of Offenses on the Offender list for a Medium Severity alert is automatically set to 2
+      - Keep SMAWI updated with status of communications with Offender
+      - Move SMAWI state to Resolved once all communications with Offender and Offender&#39;s Manager and/or Lead are complete
+      - \*\*Repeat Offender (2nd Offense)
+        - If Offender is on the Offender list, the following actions should take place
+        - 2nd Offense
+          - Lead informs Offender&#39;s Manager and/or Lead that a 2nd offense has been reached and the Offender&#39;s access to abused resource will be revoked
+          - Lead immediately removes Offender&#39;s access to abused resource (e.g., removing SSH access)
+          - Lead works with Engineering leadership, GEMS leadership (if applicable), and Offender&#39;s Manager and/or Lead to determine a path forward
+          - Once a path forward is agreed upon, SMAWI is updated and state changed to Monitoring Extreme Offender (assuming that Offender&#39;s access is reinstated)
+            - If Offender&#39;s access is not reinstated, change SMAWI state to Pending Leadership and wait for further direction
+          - Offender is added to Extreme Offender list which will generate audit reports to Engineering leadership
+          - Once Engineering leadership is satisfied with security posture of Offender, SMAWI state is moved to Resolved and Offender is removed from Extreme Offender list
+            - \*Offender should stay on Offender list
+        - 3rd Offense and above
+          - Immediately contact and assign SMAWI to Engineering leadership
+
+  - P3 - Medium Severity - SLA 48 Hour Response
+   - Medium Severity (1st Offense)
+      - An email notification to the Offender and Offender&#39;s Manager and/or Lead with the original alert forwarded or attached
+      - Lead may hand any explanations or retraining requested by Offender&#39;s Manager and/or Lead to Run Engineer
+      - Offender is added to the Offender list
+        - Include information on list such as Offender name, Offense type, Manager and/or Lead, Enforcement action taken, number of Offenses, etc.
+        - \*Number of Offenses on the Offender list for a Medium Severity alert is automatically set to 2
+      - Keep SMAWI updated with status of communications with Offender
+      - Move SMAWI state to Resolved once all communications with Offender and Offender&#39;s Manager and/or Lead are complete
+      - \*\*Repeat Offender (2nd Offense)
+        - If Offender is on the Offender list, the following actions should take place
+        - 2nd Offense
+          - Lead informs Offender&#39;s Manager and/or Lead that a 2nd offense has been reached and the Offender&#39;s access to abused resource will be revoked
+          - Lead immediately removes Offender&#39;s access to abused resource (e.g., removing SSH access)
+          - Lead works with Engineering leadership, GEMS leadership (if applicable), and Offender&#39;s Manager and/or Lead to determine a path forward
+          - Once a path forward is agreed upon, SMAWI is updated and state changed to Monitoring Extreme Offender (assuming that Offender&#39;s access is reinstated)
+            - If Offender&#39;s access is not reinstated, change SMAWI state to Pending Leadership and wait for further direction
+          - Offender is added to Extreme Offender list which will generate audit reports to Engineering leadership
+          - Once Engineering leadership is satisfied with security posture of Offender, SMAWI state is moved to Resolved and Offender is removed from Extreme Offender list
+            - \*Offender should stay on Offender list
+        - 3rd Offense and above
+          - Immediately contact and assign SMAWI to Engineering leadership
+
+     - P4 - Low Severity - SLA 120 hour Response
+     - Low severity (1st Offense)
+          - An email notification to the Offender and Offender&#39;s Manager and/or Lead with the original alert forwarded or attached
+          - Lead may hand any explanations or retraining requested by Offender&#39;s Manager and/or Lead to Run Engineer
+          - Offender is added to the Offender list
+            - Include information on list such as Offender name, Offense type, Manager and/or Lead, Enforcement action taken, number of Offenses, etc.
+          - Keep SMAWI updated with status of communications with Offender
+          - Move SMAWI state to Resolved once all communications with Offender and Offender&#39;s Manager and/or Lead are complete
+          - \*\*Repeat Offender (2nd and 3rd Offenses)
+            - If Offender is on the Offender list, the following actions should take place
+            - 2nd Offense
+              - Lead works with Offender&#39;s Manager and/or Lead to enroll Offender in mandatory retraining
+              - Lead records retraining start date and provides timeline for completion to Offender and Offender&#39;s Manager and/or Lead
+              - Once Offender completes retraining, SMAWI is updated and closed
+              - Update the Offender list with outcome of retraining and any other pertinent information
+            - 3rd Offense
+              - Lead informs Offender&#39;s Manager and/or Lead that a 3rd offense has been reached and the Offender&#39;s access to abused resource will be revoked
+              - Lead immediately removes Offender&#39;s access to abused resource (e.g., removing SSH access)
+              - Lead works with Engineering leadership, GEMS leadership (if applicable), and Offender&#39;s Manager and/or Lead to determine a path forward
+              - Once a path forward is agreed upon, SMAWI is updated and state changed to Monitoring Extreme Offender (assuming that Offender&#39;s access is reinstated)
+                - If Offender&#39;s access is not reinstated, change SMAWI state to Pending Leadership and wait for further direction
+              - Offender is added to Extreme Offender list which will generate audit reports to Engineering leadership
+              - Once Engineering leadership is satisfied with security posture of Offender, SMAWI state is moved to Resolved and Offender is removed from Extreme Offender list
+                - \*Offender should stay on Offender list
+            - 4th Offense and above
+              - Immediately contact and assign SMAWI to Engineering leadership
+
+     - P5 - Low Severity - SLA 240 hour Response
+     - Low severity (1st Offense)
+          - An email notification to the Offender and Offender&#39;s Manager and/or Lead with the original alert forwarded or attached
+          - Lead may hand any explanations or retraining requested by Offender&#39;s Manager and/or Lead to Run Engineer
+          - Offender is added to the Offender list
+            - Include information on list such as Offender name, Offense type, Manager and/or Lead, Enforcement action taken, number of Offenses, etc.
+          - Keep SMAWI updated with status of communications with Offender
+          - Move SMAWI state to Resolved once all communications with Offender and Offender&#39;s Manager and/or Lead are complete
+          - \*\*Repeat Offender (2nd and 3rd Offenses)
+            - If Offender is on the Offender list, the following actions should take place
+            - 2nd Offense
+              - Lead works with Offender&#39;s Manager and/or Lead to enroll Offender in mandatory retraining
+              - Lead records retraining start date and provides timeline for completion to Offender and Offender&#39;s Manager and/or Lead
+              - Once Offender completes retraining, SMAWI is updated and closed
+              - Update the Offender list with outcome of retraining and any other pertinent information
+            - 3rd Offense
+              - Lead informs Offender&#39;s Manager and/or Lead that a 3rd offense has been reached and the Offender&#39;s access to abused resource will be revoked
+              - Lead immediately removes Offender&#39;s access to abused resource (e.g., removing SSH access)
+              - Lead works with Engineering leadership, GEMS leadership (if applicable), and Offender&#39;s Manager and/or Lead to determine a path forward
+              - Once a path forward is agreed upon, SMAWI is updated and state changed to Monitoring Extreme Offender (assuming that Offender&#39;s access is reinstated)
+                - If Offender&#39;s access is not reinstated, change SMAWI state to Pending Leadership and wait for further direction
+              - Offender is added to Extreme Offender list which will generate audit reports to Engineering leadership
+              - Once Engineering leadership is satisfied with security posture of Offender, SMAWI state is moved to Resolved and Offender is removed from Extreme Offender list
+                - \*Offender should stay on Offender list
+            - 4th Offense and above
+              - Immediately contact and assign SMAWI to Engineering leadership

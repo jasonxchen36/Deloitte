@@ -1,0 +1,32 @@
+- An alert from the Distributed Monitoring Console (DMC) is triggered
+-  Security Monitoring Alert Work Item (SMAWI) is automatically created by Azure Logic App and added to Global Splunk Leads team boards
+  - SMAWI is automatically populated with alert name, issue, playbook steps and/or link to playbook, date created, and associated SLA time for resolution
+- Email notification to Engineering leadership is sent with SMAWI description and link to SMAWI
+- Global Splunk leads assigns SMAWI work item to themselves 
+- Lead starts resolution process by following alert-specific playbook
+- #**Playbook: SecMon - Splunk Content Edited in GUI**
+ 
+  - P2 - Medium Severity - SLA 8 Hour Response 
+   - Medium Severity (1st Offense)
+      - If the event is reviewed by the assigned lead and verified that the event occurred for legitimate reason, the user will be notified and there will be an &quot;exemption&quot; state assigned by the Global Splunk Leads team
+
+      - An email notification to the Offender and Offender&#39;s Manager and/or Lead with the original alert forwarded or attached
+      - Lead may hand any explanations or retraining requested by Offender&#39;s Manager and/or Lead 
+      - Offender is added to the Offender list
+        - Include information on list such as Offender name, Offense type, Manager and/or Lead, Enforcement action taken, number of Offenses, etc.
+        - \*Number of Offenses on the Offender list for a Medium Severity alert is automatically set to 2
+      - Keep SMAWI updated with status of communications with Offender
+      - Move SMAWI state to Resolved once all communications with Offender and Offender&#39;s Manager and/or Lead are complete
+      - \*\*Repeat Offender (2nd Offense)
+        - If Offender is on the Offender list, the following actions should take place
+        - 2nd Offense
+          - Lead informs Offender&#39;s Manager and/or Lead that a 2nd offense has been reached and the Offender&#39;s access to abused resource will be revoked
+          - Lead immediately removes Offender&#39;s access to abused resource (e.g., removing SSH access)
+          - Lead works with Splunk Engineering leadership, HM leadership (if applicable), and Offender&#39;s Manager and/or Lead to determine a path forward
+          - Once a path forward is agreed upon, SMAWI is updated and state changed to Monitoring Extreme Offender (assuming that Offender&#39;s access is reinstated)
+            - If Offender&#39;s access is not reinstated, change SMAWI state to Pending Leadership and wait for further direction
+          - Offender is added to Extreme Offender list which will generate audit reports to leadership
+          - Once leadership is satisfied with security posture of Offender, SMAWI state is moved to Resolved and Offender is removed from Extreme Offender list
+            - \*Offender should stay on Offender list
+        - 3rd Offense and above
+          - Immediately contact and assign SMAWI to leadership
