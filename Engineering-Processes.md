@@ -1,0 +1,1 @@
+This wiki contains information for Global Fusion Center, Event Monitoring Service, and Splunk processes. This information changes often and should be reviewed periodically. You are responsible for knowing the content of these pages and will be held accountable.
