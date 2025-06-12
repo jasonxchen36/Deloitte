@@ -1,0 +1,75 @@
+**Purpose & Considerations** 
+
+
+**1.	Purpose** 
+This document lists out the approved Splunk Data Model fields which is required for making logs Compliance per Common Information model (CIM) as well as Infrastructure/Cloud Security Content Development.
+
+**2. Field Type & their Definition**
+<span style="color:green;font-weight:bold">Mandatory Field </span> : Fields which have direct or indirect impact on existing or in-pipeline InfraSec or CloudSec contents. Lack of these fields will lead to data non-compliance. We will put forward our best efforts to extract or normalize these fields. Respective BISO’s approval will be required if any of these fields are missing.
+
+
+ <span style="color:orange;font-weight:bold"> Optional Field </span>: Fields which have NO direct or indirect impact on existing or in-pipeline InfraSec or CloudSec contents. We recommend extracting or normalizing these fields if it’s easily available. No BISO’s approval will be required if any of these fields are missing.
+
+**3. Key Points - CIM Normalization**
+- Please DO NOT use “unknown”, “NULL”, etc. while extraction for the fields which have not 100% coverage. It MUST be just empty.
+- All the mandatory fields which have <100% coverage, MUST be documented with the justification.
+- Eventtypes and Tags MUST be built carefully as these two are vital components for datamodel.
+- Splunk_SA_CIM MUST be appended with required index(es) as appropriate.
+
+**4.	Network Traffic**
+The fields and tags in the Network Traffic data model 
+
+
+
+| Priority | **Field** | **Data Type** | **Description** | **Expectation** | **Example** | 
+|--|--|--|--|--|--|
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | action | string | The action taken by the network device. | It must be either of these values: allowed, blocked, teardown <br><b>Must be in lower case<b/> | blocked |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | app | string | The application protocol of the traffic. | Standard OSI layer application protocol <br> **Must be in upper case** <br> Example: HTTP, HTTPS, SMTP | FTP |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | bytes | numeric | Total count of bytes handled by this device/interface (bytes_in + bytes_out).  | Must be the sum of bytes_in and bytes_out <br>**Must always be in bytes unit** | 40 |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | bytes_in | numeric | How many bytes this device/interface received. | **Must always be in bytes unit** | 40 |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | bytes_out | numeric |  How many bytes this device/interface received. | **Must always be in bytes unit** | 40 |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | Channel | string | The 802.11 channel used by a wireless network. | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | dest | string | The destination of the network traffic (the remote host). You can alias this from more specific fields, such as dest_host, dest_ip, or dest_name. | Must be either IP address or endpoint names.dest host and name can optionally be captured under “dest_host” and “dest_name” fields respectively.<br><br>Could be either IPv4 or IPv6, lower case for IPv6 <br> Deloitte might converting IPv4 to IPv6 in near future.| 10.0.62.32 <br><br> 2001:0db8:85a3:0000:0000:8a2e:0370:7334| 
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | dest_interface | string | The interface that is listening remotely or receiving packets locally. Can also be referred to as the "egress interface." | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | dest_ip | string | The IP address of the destination. | Must be a IP address if IP is available to fetch. Else, dest would be treated as identity for destination or remote host. <br><br>Could be either IPv4 or IPv6, lower case for IPv6 <br><br>Deloitte might converting IPv4 to IPv6 in near future. | 10.6.98.22 |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | dest_mac | string | The destination TCP/IP layer 2 Media Access Control (MAC) address of a packet's destination, such as 06:10:9f:eb:8f:14. Note: Always force lower case on this field. Note: Always use colons instead of dashes, spaces, or no separator. | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | dest_port | numeric | The destination port of the network traffic. Note: Do not translate the values of this field to strings (tcp/80 is 80, not http). You can set up the corresponding string value in a dest_svc field by extending the data model. | 3268 |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | dest_translated_ip | string | The NATed IPv4 or IPv6 address to which a packet has been sent. | OPTIONAL |
+|<span style="color:orange;font-weight:bold"> Optional Field </span> | dest_translated_port | numeric | The NATed port to which a packet has been sent. Note: Do not translate the values of this field to strings (tcp/80 is 80, not http). | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | dest_zone | string | The network zone of the destination. | It could be either of these values: internal, external, DMZ | internal |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | direction | string | The direction the packet is traveling. | Must be either inbound or outbound <br><br>For the CheckPoint logging, raw might not be giving the right direction which requires some sort of coordination to fetch the same or OPTIONAL for Checkpoint log source only. | inbound |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | duration | numeric | The amount of time for the completion of the network event, in seconds. | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | dvc | string | The device that reported the traffic event. You can alias this from more specific fields, such as dvc_host, dvc_ip, or dvc_name. | Must be a IP address if IP is available to fetch. Else, dvc would be treated as identity for destination or remote host.<br><br>Could be either IPv4 or IPv6, lower case for IPv6<br><br>Deloitte might converting IPv4 to IPv6 in near future.| USHYDGC18 |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | dvc_mac | string | The device TCP/IP layer 2 Media Access Control (MAC) address of a packet's destination, such as 06:10:9f:eb:8f:14. Note: Always force lower case on this field and use colons instead of dashes, spaces, or no separator. | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | dvc_zone | string | The network zone of the device | It could be either of these values: internal, external, DMZ | DMZ <br><br> internal |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | flow_id | string | Unique identifier for this traffic stream, such as a netflow, jflow, or cflow | OPTIONAL | netflow <br> jflow <br> cflow |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | icmp_code | string | The RFC 2780 or RFC 4443 human-readable code value of the traffic, such as Destination Unreachable or Parameter Problem . See the ICMP Type Numbers and the ICMPv6 Type Numbers | OPTIONAL |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | icmp_type | string | The RFC 2780 or RFC 4443 numeric value of the traffic. See the ICMP Type Numbers and the ICMPv6 Type Numbers | OPTIONAL |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | packets | numeric | The total count of packets handled by this device/interface (packets_in + packets_out). | OPTIONAL | **Must be in bytes**|
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | packets_in | numeric | The total count of packets handled by this device/interface | OPTIONAL | **Must be in bytes**|
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | packets_out | numeric | The total count of packets handled by this device/interface | OPTIONAL | **Must be in bytes**|
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | protocol | string | The OSI layer 3 (network) protocol of the traffic observed, in lower case. For example, ip, appletalk, ipx. | Standard OSI layer network protocol <br><br>Must be in upper case <br><br>Example: ip, TCP/IP, UDP, appletalk, ipx | IP <br><br>ICMP |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | protocol_version | string | Version of the OSI layer 3 protocol | OPTIONAL |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | response_time | string | The amount of time it took to receive a response in the network event, if applicable. | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | rule | string | The rule that defines the action that was taken in the network event. Note: This is a string value. Use a rule_id field for rule fields that are integer data types. <br>The rule_id field is optional, so it is not included in this table. | This must be a string value. | | Future Use Cases |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | session_id | string | The session identifier. Multiple transactions build a session <br><br>Could be used for operational troubleshooting| OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | src | string | The source of the network traffic (the client requesting the connection). You can alias this from more specific fields, such as src_host, src_ip, or src_name | Must be a IP address if IP is available to fetch. Else, dest would be treated as identity for destination or remote host. <br><br>Could be either IPv4 or IPv6, lower case for IPv6 <br><br>Deloitte might converting IPv4 to IPv6 in near future. | 10.27.30.128 |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | src_interface | string | The interface that is listening locally or sending packets remotely. Can also be referred to as the "ingress interface | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | src_ip | string | string The IP address of the source | Must be a IP address if IP is available to fetch. Else, dest would be treated as identity for destination or remote host.<br><br>Could be either IPv4 or IPv6, lower case for IPv6 <br><br>Deloitte might converting IPV4 to IPV6 in near future | 10.27.30.128 | 
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | src_mac | string | The source TCP/IP layer 2 Media Access Control (MAC) address of a packet's destination, such as 06:10:9f:eb:8f:14. Note: Always force lower case on this field. Note: Always use colons instead of dashes, spaces, or no separator | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | src_port | numeric | The source port of the network traffic. Do not translate the values of this field to strings (tcp/80 is 80, not http). You can set up the corresponding string value in the src_svc field. | Must be a numeric value. <br>Do not translate the values of this field to strings (tcp/80 is 80, not tcp)<br>**Port# must be extracted separately** | 19982 |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | src_translated_ip | string | The NATed IPv4 or IPv6 address from which a packet has been sent.. | OPTIONAL |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | src_translated_port | numeric | The NATed IPv4 or IPv6 address from which a packet has been sent <br><br> Do not translate the values to strings (tcp/80 would be 80, not http) | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | src_zone | string | The network zone of the source | It could be either of these values: internal, external, DMZ |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | ssid | string | The 802.11 service set identifier (ssid) assigned to a wireless session. | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | tag | string | This automatically generated field is used to access tags from within data models. Do not define extractions for this field when writing add-ons | Must be as per Splunk data model. Tag Must not be present if a particular eventtypes are missing. Ex: If events are only related to network and then “communicate” tag must be added. | Communicated network |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | tcp_flag | string | The TCP flag(s) specified in the event | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | transport | string | The OSI layer 4 (transport) or internet layer protocol of the traffic observed. | Standard OSI transport) or internet layer network protocol<br><br>Must be in upper case <br><br>Example: TCP/IP, UDP | tcp |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | tos | string | The combination of source and destination IP ToS (type of service) values in the event | OPTIONAL |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | ttl | numeric | The "time to live" of a packet or diagram | OPTIONAL |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | user | string | The user that requested the traffic flow | username without domain. Must be in lower case.<br><br>Example: xyz<br><br>[Note, username must be able to traced when it comes to incident investigation]<br><br>“Src” values can be used for identifying the internal vs external looking at the IP CIDR ranges. |
+| <span style="color:green;font-weight:bold">Mandatory Field </span> | vendor_account | string | The account associated with the network traffic | For cloud data sources only<br><br>Not being utilizaed by on-prem data sources|
+|<span style="color:green;font-weight:bold">Mandatory Field </span> | vendor_product | The vendor and product of the device generating the network event. This field can be automatically populated by vendor and product fields in your data. | Must be string.<br><br>Could be used industry standard naming style such as “Palo Alto” not “PALO ALTO” | Microsoft Windows Firewall |
+| <span style="color:orange;font-weight:bold"> Optional Field </span> | vlan | string | The virtual local area network (VLAN) specified in the record. | OPTIONAL |
+|<span style="color:orange;font-weight:bold"> Optional Field </span> | wifi | The wireless standard(s) in use, such as 802.11a, 802.11b, 802.11g, or 802.11n | OPTIONAL |
+<span style="color:green;font-weight:bold">Mandatory Field </span>|work_country | string |Country from where the logs are originating. |Must be in Upper Case. |Example: work_country of the Netskope logs from US in the index= amer_cloud_netskope_casb  would be work_country=US|
